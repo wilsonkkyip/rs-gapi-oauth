@@ -49,6 +49,9 @@ fn test_variables() {
     let refresh_token = std::env::var("USER_REFRESH_TOKEN")
         .expect("No USER_REFRESH_TOKEN in env var")
         .as_str().to_string();
+    // let xxx = std::env::var("xxx")
+    //     .expect("No USER_REFRESH_TOKEN in env var")
+    //     .as_str().to_string();
 
     assert!(client_email.len() > 10);
     assert!(private_key.len() > 10);
