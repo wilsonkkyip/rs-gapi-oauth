@@ -1,6 +1,6 @@
 # gapi-oauth
 
-A personal project for Google API OAuth 2.0. It only focuses on ["Sever-side Web Apps"](https://developers.google.com/identity/protocols/oauth2/web-server) and [Service Accounts](https://developers.google.com/identity/protocols/oauth2/service-account). It is designed to be used as both a CLI tool and a crate of package. 
+A personal project for Google API OAuth 2.0. It only focuses on ["Sever-side Web Apps"](https://developers.google.com/identity/protocols/oauth2/web-server) and ["Service Accounts"](https://developers.google.com/identity/protocols/oauth2/service-account). It is designed to be used as both a CLI tool and a crate of package. 
 
 ## CLI Tool
 
