@@ -7,6 +7,7 @@ mod auth_service;
 
 #[tokio::test]
 async fn test_auth_user() {
+    
     let client_id = std::env::var("USER_CLIENT_ID")
         .expect("No USER_CLIENT_ID in env var")
         .as_str().to_string();
