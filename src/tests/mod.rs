@@ -52,8 +52,11 @@ fn test_variables() {
     let xxx = std::env::var("CARGO_TEAM_COLOR")
         .expect("No CARGO_TEAM_COLOR in env var")
         .as_str().to_string();
+    let TEST_SECRET = std::env::var("TEST_SECRET")
+        .expect("No TEST_SECRET in env var")
+        .as_str().to_string();
 
-    assert_eq!(xxx, "always");
+    assert_eq!(TEST_SECRET, "hi");
     assert!(client_email.len() > 10);
     assert!(private_key.len() > 10);
     assert!(private_key_id.len() > 10);
