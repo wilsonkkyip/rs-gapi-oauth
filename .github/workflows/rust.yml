@@ -1,0 +1,33 @@
+name: Rust
+
+on: 
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  
+  env: 
+    CARGO_TEAM_COLOR: always
+    USER_CLIENT_ID: ${{ secrets.USER_CLIENT_ID }}
+    USER_CLIENT_SECRET: ${{ secrets.USER_CLIENT_SECRET }}
+    USER_REFRESH_TOKEN: ${{ secrets.USER_REFRESH_TOKEN }}
+    SERVICE_CLIENT_EMAIL: ${{ secrets.SERVICE_CLIENT_EMAIL }}
+    SERVICE_PRIVATE_KEY: ${{ secrets.SERVICE_PRIVATE_KEY }}
+    SERVICE_PRIVATE_KEY_ID: ${{ secrets.SERVICE_PRIVATE_KEY_ID }}
+  
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          toolchain:
+            - stable
+            - beta
+            - nightly
+
+      steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        run: cargo build --verbose
+      - name: Run tests
+        run: cargo test --verbose
