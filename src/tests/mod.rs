@@ -29,6 +29,7 @@ async fn test_auth_user() {
         .expect("Unable to authenticate");
 }
 
+#[test]
 fn test_variables() {
     let client_email = std::env::var("SERVICE_CLIENT_EMAIL")
         .expect("No SERVICE_CLIENT_EMAIL in env var")
