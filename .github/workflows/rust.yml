@@ -12,6 +12,7 @@ on:
   
 env: 
   CARGO_TEAM_COLOR: always
+  TEST_SECRET: ${{ secrets.TEST_SECRET }}
   USER_CLIENT_ID: ${{ secrets.USER_CLIENT_ID }}
   USER_CLIENT_SECRET: ${{ secrets.USER_CLIENT_SECRET }}
   USER_REFRESH_TOKEN: ${{ secrets.USER_REFRESH_TOKEN }}
