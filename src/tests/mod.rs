@@ -8,11 +8,14 @@ mod auth_service;
 #[tokio::test]
 async fn test_auth_user() {
     let client_id = std::env::var("USER_CLIENT_ID")
-        .expect("No USER_CLIENT_ID in env var");
+        .expect("No USER_CLIENT_ID in env var")
+        .as_str().to_string();
     let client_secret = std::env::var("USER_CLIENT_SECRET")
-        .expect("No USER_CLIENT_SECRET in env var");
+        .expect("No USER_CLIENT_SECRET in env var")
+        .as_str().to_string();
     let refresh_token = std::env::var("USER_REFRESH_TOKEN")
-        .expect("No USER_REFRESH_TOKEN in env var");
+        .expect("No USER_REFRESH_TOKEN in env var")
+        .as_str().to_string();
 
     // Construct UserSecret
     let client_token = auth_users::UserSecret {
@@ -29,11 +32,14 @@ async fn test_auth_user() {
 #[tokio::test]
 async fn test_auth_service() {
     let client_email = std::env::var("SERVICE_CLIENT_EMAIL")
-        .expect("No SERVICE_CLIENT_EMAIL in env var");
+        .expect("No SERVICE_CLIENT_EMAIL in env var")
+        .as_str().to_string();
     let private_key = std::env::var("SERVICE_PRIVATE_KEY")
-        .expect("No SERVICE_PRIVATE_KEY in env var");
+        .expect("No SERVICE_PRIVATE_KEY in env var")
+        .as_str().to_string();
     let private_key_id = std::env::var("SERVICE_PRIVATE_KEY_ID")
-        .expect("No SERVICE_PRIVATE_KEY_ID in env var");
+        .expect("No SERVICE_PRIVATE_KEY_ID in env var")
+        .as_str().to_string();
 
     let service_secret = auth_service::ServiceSecret {
         client_email: client_email,
