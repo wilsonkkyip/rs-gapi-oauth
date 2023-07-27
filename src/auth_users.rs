@@ -1,7 +1,3 @@
-#[path = "token.rs"] 
-mod token;
-pub use token::Token;
-
 use std::fs;
 use serde_json::Value;
 use serde::Deserialize;
@@ -12,6 +8,8 @@ use std::io::prelude::Read;
 use url::Url;
 use std::collections::HashMap;
 use chrono::prelude::NaiveDateTime;
+use crate::token::Token;
+use crate::token::OAUTH_TOKEN_URL;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UserSecret {
@@ -39,13 +37,13 @@ impl UserSecret {
 
         // Auth request
         let response: reqwest::Response = reqwest::Client::new()
-            .post(token::OAUTH_TOKEN_URL)
+            .post(OAUTH_TOKEN_URL)
             .json(&body)
             .send()
             .await?;
 
         // Parse response to output
-        let content: token::Token = response.json().await?;
+        let content: Token = response.json().await?;
 
         return Ok(content)
     }

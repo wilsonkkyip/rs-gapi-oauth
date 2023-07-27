@@ -1,10 +1,6 @@
-#[path = "token.rs"]
-mod token;
-
 use std::fs;
 use serde::Deserialize;
 use serde::Serialize;
-pub use token::Token;
 
 use jsonwebtoken::{
     encode, 
@@ -15,6 +11,9 @@ use jsonwebtoken::{
 
 use reqwest::Response;
 use reqwest::StatusCode;
+
+use crate::token::Token;
+use crate::token::OAUTH_TOKEN_URL;
 
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -63,7 +62,7 @@ impl ServiceSecret {
 
         // Auth JWT
         let response: Response = reqwest::Client::new()
-            .post(token::OAUTH_TOKEN_URL)
+            .post(OAUTH_TOKEN_URL)
             .json(&serde_json::json!({
                 "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
                 "assertion": token

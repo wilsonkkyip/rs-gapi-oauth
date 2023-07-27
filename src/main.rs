@@ -11,7 +11,7 @@ use auth_service::ServiceSecret;
 
 use serde_json;
 
-// mod token;
+mod token;
 
 
 const HELP_MSG: &str = "

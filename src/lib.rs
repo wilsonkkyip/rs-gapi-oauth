@@ -7,20 +7,20 @@ pub use auth_users::{
     ClientSecret,
     AuthCode,
     ClientSecretTokenResponse,
-    ClientSerectResponse,
-    Token as UserToken
+    ClientSerectResponse
 };
 
 mod auth_service;
-use auth_service::{
-    ServiceSecret,
-    Token as ServiceToken
-};
+pub use auth_service::ServiceSecret;
 
 mod gapirc;
-use gapirc::{
+pub use gapirc::{
     GApiRc,
     GAuthType
 };
+
+mod token;
+pub use token::OAUTH_TOKEN_URL;
+pub use token::Token;
 
 
