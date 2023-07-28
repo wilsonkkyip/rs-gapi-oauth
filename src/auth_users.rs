@@ -19,6 +19,7 @@ pub struct UserSecret {
 }
 
 impl UserSecret {
+    #[allow(dead_code)]
     pub fn from_file(path: &str) -> Result<UserSecret, std::io::Error> {
         
         let binding: String = fs::read_to_string(path)?;
@@ -88,6 +89,7 @@ pub struct ClientSerectResponse {
 }
 
 impl ClientSecret {
+    #[allow(dead_code)]
     pub fn from_file(path: &str) -> Result<ClientSecret, std::io::Error> {
         let bindings: String = fs::read_to_string(&path)?;
         let content: Value = serde_json::from_str(&bindings.as_str())
@@ -100,6 +102,7 @@ impl ClientSecret {
         Ok(content)
     }
 
+    #[allow(dead_code)]
     pub fn auth_url(&self, scope: &str) -> String {
         let url: String = format!(
             "{}?client_id={}&redirect_uri={}&scope={}&access_type=offline&prompt=consent&response_type=code",
@@ -111,6 +114,7 @@ impl ClientSecret {
         return url;
     }
 
+    #[allow(dead_code)]
     pub fn auth_code(&self, scope: &str, port: u32) -> Result<AuthCode, std::io::Error> {
         let auth_url: String = self.auth_url(scope);
         println!("Please visit this URL to authorize this application: {}", auth_url);
@@ -140,6 +144,7 @@ impl ClientSecret {
         return Ok(output);
     }
 
+    #[allow(dead_code)]
     pub async fn auth_token(&self, code: &str) -> Result<ClientSecretTokenResponse, reqwest::Error> {
         let body: Value = serde_json::json!({
             "client_id": self.client_id,
@@ -160,6 +165,7 @@ impl ClientSecret {
         return Ok(content);
     }
 
+    #[allow(dead_code)]
     pub async fn auth(&self, scope: &str, port: u32) -> Result<ClientSerectResponse, reqwest::Error> {
         let auth_code = self.auth_code(&scope, port)
             .expect("Failed to parse auth code");

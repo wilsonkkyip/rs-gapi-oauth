@@ -24,6 +24,7 @@ pub struct ServiceSecret {
 }
 
 impl ServiceSecret {
+    #[allow(dead_code)]
     pub fn from_file(path: &str) -> Result<ServiceSecret, std::io::Error> {
         let bindings = fs::read_to_string(&path)?;
         let content = serde_json::from_str(&bindings.as_str())
