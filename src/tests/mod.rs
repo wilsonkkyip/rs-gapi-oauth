@@ -1,9 +1,5 @@
-
-#[path = "../auth_users.rs"]
-mod auth_users;
-
-#[path = "../auth_service.rs"]
-mod auth_service;
+use crate::auth_users::UserSecret;
+use crate::auth_service::ServiceSecret;
 
 #[tokio::test]
 async fn test_auth_user() {
@@ -18,7 +14,7 @@ async fn test_auth_user() {
         .as_str().to_string();
 
     // Construct UserSecret
-    let client_token = auth_users::UserSecret {
+    let client_token = UserSecret {
         client_id: client_id,
         client_secret: client_secret,
         refresh_token: refresh_token,
@@ -41,7 +37,7 @@ async fn test_auth_service() {
         .expect("No SERVICE_PRIVATE_KEY_ID in env var")
         .as_str().to_string();
 
-    let service_secret = auth_service::ServiceSecret {
+    let service_secret = ServiceSecret {
         client_email: client_email,
         private_key: private_key,
         private_key_id: private_key_id,

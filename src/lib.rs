@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests;
 
-mod auth_users;
+pub mod auth_users;
 pub use auth_users::{
     UserSecret,
     ClientSecret,

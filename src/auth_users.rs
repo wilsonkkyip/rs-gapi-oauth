@@ -2,7 +2,6 @@ use std::fs;
 use serde_json::Value;
 use serde::Deserialize;
 use serde::Serialize;
-use urlencoding::encode;
 use std::net::TcpListener;
 use std::io::prelude::Read;
 use url::Url;
@@ -104,13 +103,18 @@ impl ClientSecret {
 
     #[allow(dead_code)]
     pub fn auth_url(&self, scope: &str) -> String {
-        let url: String = format!(
-            "{}?client_id={}&redirect_uri={}&scope={}&access_type=offline&prompt=consent&response_type=code",
-            self.auth_uri,
-            encode(&self.client_id),
-            encode(&self.redirect_uris[0]),
-            encode(scope)
-        );
+        let params: HashMap<_,_> = HashMap::from([
+            ("response_type", "code"),
+            ("access_type", "offline"),
+            ("prompt", "consent"),
+            ("client_id", &self.client_id),
+            ("redirect_uri", &self.redirect_uris[0]),
+            ("scope", &scope)
+        ]);
+
+        let url = reqwest::Url::parse_with_params(
+            &self.auth_uri, params
+        ).expect("Failed to parse auth url.").to_string();
         return url;
     }
 
@@ -160,7 +164,8 @@ impl ClientSecret {
             .send()
             .await?;
 
-        let content: ClientSecretTokenResponse = response.json().await.expect("Failed to parse http response");
+        let content: ClientSecretTokenResponse = response.json()
+            .await.expect("Failed to parse http response");
 
         return Ok(content);
     }

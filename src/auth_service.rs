@@ -26,8 +26,8 @@ pub struct ServiceSecret {
 impl ServiceSecret {
     #[allow(dead_code)]
     pub fn from_file(path: &str) -> Result<ServiceSecret, std::io::Error> {
-        let bindings = fs::read_to_string(&path)?;
-        let content = serde_json::from_str(&bindings.as_str())
+        let bindings: String = fs::read_to_string(&path)?;
+        let content: ServiceSecret = serde_json::from_str(&bindings.as_str())
             .expect("Unable to parse file to ServiceSecret");
         return Ok(content);
     }
@@ -46,8 +46,11 @@ impl ServiceSecret {
         });
 
         // Prepare JWT header
-        let mut header: Header = Header::new(Algorithm::RS256);
-        header.kid = Some(self.private_key_id.to_string());
+        let header: Header = Header{
+            alg: Algorithm::RS256,
+            kid: Some(self.private_key_id.to_string()),
+            ..Default::default()
+        };
 
         // Prepare JWT key
         let key: EncodingKey = EncodingKey::from_rsa_pem(
